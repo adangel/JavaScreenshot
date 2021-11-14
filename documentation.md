@@ -216,3 +216,9 @@ I've put a little application around ScreenshotUtil which adds a
 [SystemTray](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/SystemTray.html)
 and a little preview window which directly displays the taken screenshot.
 You can then save it into a file or take another screenshot.
+
+The journey is going on: Switching to the Portal API to take screenshots will ask the user
+always to share the screenshot with the application. That's annoying if the task of an application is
+to take screenshots. There are discussions about a new API on github [xdg-desktop-portal#649: Screenshot portal without prompt](https://github.com/flatpak/xdg-desktop-portal/issues/649)
+which allows the user to grant a permission to the application that requested the screenshot, so that for
+future screenshots, no prompt is displayed anymore.
