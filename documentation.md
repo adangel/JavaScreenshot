@@ -25,7 +25,7 @@ This has to do with a recent update of GNOME, which forbids arbitrary
 applications to take screenshots of the desktop without letting the user know
 about this.
 
-But let's take a step back: On a modern linux desktop, the different process
+But let's take a step back: On a modern linux desktop, the different processes
 such as the desktop itself and the applications communicate with each other
 via [DBus](https://freedesktop.org/wiki/Software/dbus/). This means, an
 application can send a request to the desktop to take a screenshot. This
@@ -67,7 +67,7 @@ error time=1636906285.149829 sender=:1.22 -> destination=:1.98 error_name=org.fr
    string "Screenshot is not allowed"
 ```
 
-Sender ":1.98" try to call the method Screenshot on interface "org.gnome.Shell.Screenshot"
+Sender ":1.98" tries to call the method Screenshot on interface "org.gnome.Shell.Screenshot"
 and got the response "Screenshot is not allowed" back.
 
 You can use python to execute this DBus method call directly:
@@ -90,8 +90,8 @@ there I found the pointer to the root cause: It was a merge request in
 gnome shell with the title "dbus: Restrict callers of private D-Bus APIs".
 You can read the info here: [gnome-shell!1970](https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/1970)
 and additional background on [gnome-shell#3943](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/3943).
-They made sure, that the own Gnome utilities (like Gnome Screenshot) still works
-(and the shortcut). But this gnome shell API is officially private now.
+They made sure, that Gnome utilities like Gnome Screenshot still work
+(and the keyboard shortcut to take a screenshot). But this gnome shell API is officially private now.
 
 What are the alternatives then? They talk about "portals". And the
 correct API to use for screenshots is the portals API from
@@ -199,11 +199,11 @@ options.put("handle_token", new Variant(token));
 DBusPath result = iface.Screenshot("", options);
 ```
 
-I've manually
-created the interface [`ScreenshotInterface`](https://github.com/adangel/JavaScreenshot/blob/master/org/adangel/javascreenshot/dbus/ScreenshotInterface.java)
-which represents the portal desktop API in java. The library also provides
+The library provides
 a way to [generate code](https://github.com/hypfvieh/dbus-java/blob/master/src/site/markdown/code-generation.md)
-directly:
+directly, but I've manually
+created the interface [`ScreenshotInterface`](https://github.com/adangel/JavaScreenshot/blob/master/org/adangel/javascreenshot/dbus/ScreenshotInterface.java)
+which represents the portal desktop API in java:
 
 ```java
 @DBusInterfaceName(value = "org.freedesktop.portal.Screenshot")
